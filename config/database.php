@@ -31,7 +31,7 @@ class Config_Database {
 
     //--------------------------------------------------------------------------
 
-    /** function getPort() 
+    /** function getDatabase() 
      * for get database name     
      * return  string
      */
@@ -41,7 +41,7 @@ class Config_Database {
 
     //--------------------------------------------------------------------------
 
-    /** function getPort() 
+    /** function getUser() 
      * for get user name     
      * return  string
      */
@@ -51,7 +51,7 @@ class Config_Database {
 
     //--------------------------------------------------------------------------
 
-    /** function getPort() 
+    /** function getPass() 
      * for get pass name     
      * return  string
      */
