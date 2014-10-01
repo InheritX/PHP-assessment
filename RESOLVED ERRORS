@@ -1,0 +1,297 @@
+---------------------------------------------------------------------------------------------------------
+1) PHP Parse error:  syntax error, unexpected '{', expecting '(' in /var/www/php-assessment-master/config/database.php on line 23
+
+----------
+Error:
+----------
+public function getPort{
+    return $this->credentials['port'];
+}
+----------
+Resolved:
+----------
+public function getPort(){
+
+}
+
+---------------------------------------------------------------------------------------------------------
+2) Uncomment following lines from boot.php
+
+----------
+Error:
+----------
+//require_once __DIR__ . '/core/logging.php';
+//require_once __DIR__ . '/models/question.php';
+
+----------
+Resolved:
+----------
+
+require_once __DIR__ . '/core/logging.php';
+require_once __DIR__ . '/models/question.php';
+
+---------------------------------------------------------------------------------------------------------
+3) Closign bracket missing of class.
+
+----------
+Error:
+----------
+
+class Logging {
+	public static function logDBErrorAndExit($error) { die('An Error Occurred: ' . $error); }
+
+----------
+Resolved: 
+----------
+
+class Logging {
+	public static function logDBErrorAndExit($error) { die('An Error Occurred: ' . $error); }
+}
+---------------------------------------------------------------------------------------------------------
+4) syntax error, unexpected ''answer'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /var/www/php-assessment-master/models/question.php on line 77
+
+----------
+Error:
+----------
+
+$columns = array(
+    'name',
+    'text'
+    'answer'
+);
+
+----------
+Resolved:
+----------
+
+$columns = array(
+    'name',
+    'text',
+    'answer'
+);
+---------------------------------------------------------------------------------------------------------
+5) Cannot use object of type interview\Config_Database as array in /var/www/php-assessment-master/core/database.php on line 14
+
+----------
+Error:
+----------
+
+try {
+    $this->link = new \PDO(
+        'mysql:host=' . $credentials['host'] . 'dbname=' . $credentials['database'],
+        $credentials->getUser(),
+        $credentials->getPass(),
+        array(
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION)
+    );
+} catch (\PDOException $e) {
+    Logging::logDBErrorAndExit($e->getMessage());
+}
+
+----------
+Resolved:
+----------
+
+try {
+    $this->link = new \PDO(
+        'mysql:host=' . $credentials->getHost() . 'dbname=' . $credentials->getDatabase(),
+        $credentials->getUser(),
+        $credentials->getPass(),
+        array(
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION)
+    );
+} catch (\PDOException $e) {
+    Logging::logDBErrorAndExit($e->getMessage());
+}
+---------------------------------------------------------------------------------------------------------
+6) ..An Error Occurred: SQLSTATE[HY000] [2005] Unknown MySQL server host 'localhostdbname=interview' (2)
+
+----------
+Error:
+----------
+
+try {
+    $this->link = new \PDO(
+        'mysql:host=' . $credentials->getHost() . 'dbname=' . $credentials->getDatabase(),
+        $credentials->getUser(),
+        $credentials->getPass(),
+        array(
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION)
+    );
+} catch (\PDOException $e) {
+    Logging::logDBErrorAndExit($e->getMessage());
+}
+
+Resolved:
+
+try {
+    $this->link = new \PDO(
+        'mysql:host=' . $credentials->getHost() . ';dbname=' . $credentials->getDatabase().';charset=utf8',
+        $credentials->getUser(),
+        $credentials->getPass(),
+        array(
+            \PDO::ATTR_EMULATE_PREPARES => false,
+            \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION)
+    );
+} catch (\PDOException $e) {
+    Logging::logDBErrorAndExit($e->getMessage());
+}
+
+---------------------------------------------------------------------------------------------------------
+7) Missing to add "`" after $this->tableName into Question model constuctor.
+
+----------
+Error: 
+----------
+
+$sql  = "SELECT * FROM `$this->tableName WHERE `id` = '" . $questionId . "' LIMIT 1;";
+
+----------
+Resolved:
+----------
+
+$sql  = "SELECT * FROM `$this->tableName` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+---------------------------------------------------------------------------------------------------------
+8) Cannot access protected property interview\Question::$name in /var/www/php-assessment-master/tests/testQuestion.php on line 18
+
+----------
+Error: 
+----------
+
+protected $name;
+
+----------
+Resolved:
+----------
+
+public $name;
+
+---------------------------------------------------------------------------------------------------------
+9) .FFPHP Fatal error:  Using $this when not in object context in /var/www/php-assessment-master/models/question.php on line 47
+
+----------
+Error: 
+----------
+
+public static function getTextById($questionId, Database $db)
+{
+    $sql = "SELECT `text` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    $result = $db->getArray($sql);
+
+    return $this->text;
+}
+
+----------
+Resolved:
+----------
+public static function getTextById($questionId, Database $db)
+{
+    $sql = "SELECT `text` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    $result = $db->getArray($sql);
+
+    return $result[0]['text'];
+}
+---------------------------------------------------------------------------------------------------------
+10) Missing to add "`" before  self::TABLENAME into getAnswerById function
+
+----------
+Error: 
+----------
+public static function getAnswerById($questionId, Database $db)
+{
+    $sql = "SELECT `answer` FROM " . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    $result = $db->getArray($sql);
+
+    return $result[0]['answer'];
+}
+
+----------
+Resolved:
+----------
+public static function getAnswerById($questionId, Database $db)
+{
+    $sql = "SELECT `answer` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    $result = $db->getArray($sql);
+
+    return $result[0]['answer'];
+}
+---------------------------------------------------------------------------------------------------------
+========================================================================================================
+testBasic.php Unit Test Results
+========================================================================================================
+root@dsk20:/var/www/php-assessment-master# phpunit --verbose tests/testBasics.php 
+PHPUnit 4.2.6 by Sebastian Bergmann.
+
+...
+
+Time: 42 ms, Memory: 1.75Mb
+
+OK (3 tests, 3 assertions)
+========================================================================================================
+testQuestion.php Unit Test Results
+========================================================================================================
+
+root@dsk20:/var/www/php-assessment-master# phpunit --verbose tests/testQuestion.php 
+PHPUnit 4.2.6 by Sebastian Bergmann.
+
+.FFFFFF
+
+Time: 48 ms, Memory: 2.25Mb
+
+There were 6 failures:
+
+1) QuestionTest::testInstantiationById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:18
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+2) QuestionTest::testStaticGetNameById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:28
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+3) QuestionTest::testStaticGetTextById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:35
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+4) QuestionTest::testStaticGetAnswerById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:42
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+5) QuestionTest::testStaticGetCreatedById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:49
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+6) QuestionTest::testQuestionsAnswered
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:56
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+FAILURES!
+Tests: 7, Assertions: 7, Failures: 6.
+
+********************************************************************************************************

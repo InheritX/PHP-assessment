@@ -2,47 +2,62 @@
 
 namespace interview;
 
-class Config_Database
-{
+class Config_Database {
 
     private $credentials = array(
-        'host'     => 'localhost',
-        'port'     => NULL,
+        'host' => 'localhost',
+        'port' => NULL,
         'database' => 'interview',
-        'user'     => 'questions',
-        'pass'     => 'answers'
+        'user' => 'root',
+        'pass' => 'inheritx'
     );
-
-    public function getHost()
-    {
+    
+    /** function getHost() 
+     * for get host name     
+     * return  string
+     */
+    public function getHost() {
         return $this->credentials['host'];
     }
+
     //--------------------------------------------------------------------------
-
-
-    public function getPort{
+    /** function getPort() 
+     * for get port name     
+     * return  string
+     */
+    public function getPort() {
         return $this->credentials['port'];
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function getDatabase()
-    {
+    /** function getPort() 
+     * for get database name     
+     * return  string
+     */
+    public function getDatabase() {
         return $this->credentials['database'];
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function getUser()
-    {
+    /** function getPort() 
+     * for get user name     
+     * return  string
+     */
+    public function getUser() {
         return $this->credentials['user'];
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function getPass()
-    {
+    /** function getPort() 
+     * for get pass name     
+     * return  string
+     */
+    public function getPass() {
         return $this->credentials['pass'];
     }
+
     //--------------------------------------------------------------------------
 }

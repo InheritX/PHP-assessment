@@ -1,28 +1,78 @@
-Technical Skills Assessment (PHP)
-=================================
+Results of test cases for testBasic.php and testQuestion.php
+========================================================================================================
+testBasic.php Unit Test Results
+========================================================================================================
 
-Requirements
+root@dsk20:/var/www/php-assessment-master# phpunit --verbose tests/testBasics.php 
+PHPUnit 4.2.6 by Sebastian Bergmann.
 
-* Local development environment with PHP (5.4+) interpreter and MySQL (5.5+) server
+...
 
-Instructions
+Time: 42 ms, Memory: 1.75Mb
 
-1. Create a Github account if you don’t have one already
-2. Send an email to jason at leadwrench dot com with the subject of “PHP Skills Assessment” and include your Github 
-   account ID in the body. You will have 2 hours to complete the assessment from the time you send this email.
-3. Fork the repository at: https://github.com/edgeprod/PHP-assessment into your account
-4. Pull your forked repository into your IDE
-5. Fix any PHP syntax errors you find. Errors have been intentionally placed in the code.
-6. Modify code to meet PSR-1 and PSR-2 code style guidelines. Do NOT incorporate PSR-0 or PSR-4, as required by PSR-1. 
-   Make use of self-documenting code principles where necessary. Identify and use other existing style conventions.
-7. Initialize and run Composer to get needed dependencies
-8. Create a MySQL database and import the ‘schema.sql’ file
-9. Update ‘config/database.php’ with credentials to access newly created database
-10. Run unit tests to see remaining failures
-11. Make needed changes so all unit tests pass, however do NOT change the unit tests in any way.
-12. Push ALL changes back to your forked repository, including database changes (into schema.sql)
-13. Replace that ‘README.md’ file with the output of all the unit tests passing
-14. Create a Pull Request to integrate the fixed code back into the master repository. The Pull Request will ultimately 
-    not be merged but will signal your completion of the skills assessment.
+OK (3 tests, 3 assertions)
+========================================================================================================
+testQuestion.php Unit Test Results
+========================================================================================================
 
-Please ask for clarification if you have a question. Guessing an answer to an ambiguous directive will count against you.
+root@dsk20:/var/www/php-assessment-master# phpunit --verbose tests/testQuestion.php 
+PHPUnit 4.2.6 by Sebastian Bergmann.
+
+.FFFFFF
+
+Time: 48 ms, Memory: 2.25Mb
+
+There were 6 failures:
+
+1) QuestionTest::testInstantiationById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:18
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+2) QuestionTest::testStaticGetNameById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:28
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+3) QuestionTest::testStaticGetTextById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:35
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+4) QuestionTest::testStaticGetAnswerById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:42
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+5) QuestionTest::testStaticGetCreatedById
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:49
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+6) QuestionTest::testQuestionsAnswered
+Failed asserting that a NULL is not empty.
+
+/var/www/php-assessment-master/tests/testQuestion.php:56
+phar:///usr/local/bin/phpunit/phpunit/TextUI/TestRunner.php:423
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:186
+phar:///usr/local/bin/phpunit/phpunit/TextUI/Command.php:138
+
+FAILURES!
+Tests: 7, Assertions: 7, Failures: 6.
+
+********************************************************************************************************

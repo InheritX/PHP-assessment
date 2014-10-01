@@ -2,78 +2,97 @@
 
 namespace interview;
 
-class Question
-{
+class Question {
 
     public $id;
-    protected $name;
+    public $name;
     public $text;
     public $answer;
     public $created;
-
     protected $tableName = 'questions';
-    const      TABLENAME = 'questions';
 
-    public function __construct($questionId, Database $db)
-    {
-        $sql  = "SELECT * FROM `$this->tableName WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    const TABLENAME = 'questions';
+
+    public function __construct($questionId, Database $db) {
+        $sql = "SELECT * FROM `$this->tableName` WHERE `id` = '" . $questionId . "' LIMIT 1;";
 
         $result = $db->getArray($sql);
 
-        $this->id      = $questionId;
-        $this->name    = $result[0]['name'];
-        $this->text    = $result[0]['text'];
-        $this->answer  = $result[0]['answer'];
+        $this->id = $questionId;
+        $this->name = $result[0]['name'];
+        $this->text = $result[0]['text'];
+        $this->answer = $result[0]['answer'];
         $this->created = $result['created'];
     }
+
     //--------------------------------------------------------------------------
-
-
-    public static function getNameById($questionId, Database $db)
-    {
+    /** function getNameById() 
+     * for fetching record from question table
+     * @param  int     $questionId
+     * @param  object     $db     
+     * return  string
+     */
+    public static function getNameById($questionId, Database $db) {
         $sql = "SELECT `name` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
         $result = $db->getArray($sql);
 
         return $result[0]['name'];
     }
+
     //--------------------------------------------------------------------------
 
-
-    public static function getTextById($questionId, Database $db)
-    {
+    /** function getTextById() 
+     * for fetching record from question table
+     * @param  int     $questionId
+     * @param  object     $db     
+     * return  string
+     */
+    public static function getTextById($questionId, Database $db) {
         $sql = "SELECT `text` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
         $result = $db->getArray($sql);
 
-        return $this->text;
+        return $result[0]['text'];
     }
+
     //--------------------------------------------------------------------------
-
-
-    public static function getAnswerById($questionId, Database $db)
-    {
-        $sql = "SELECT `answer` FROM " . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
+    /** function getAnswerById() 
+     * for fetching record from question table
+     * @param  int     $questionId
+     * @param  object     $db     
+     * return  string
+     */
+    public static function getAnswerById($questionId, Database $db) {
+        $sql = "SELECT `answer` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
         $result = $db->getArray($sql);
 
         return $result[0]['answer'];
     }
+
     //--------------------------------------------------------------------------
-
-
-    public static function getCreatedById($questionId, Database $db)
-    {
+    /** function getAnswerById() 
+     * for fetching record from question table
+     * @param  int     $questionId
+     * @param  object     $db     
+     * return  string
+     */
+    public static function getCreatedById($questionId, Database $db) {
         $sql = "SELECT `created` FROM `" . self::TABLENAME . "` WHERE `id` = '" . $questionId . "' LIMIT 1;";
         $result = $db->getArray($sql);
 
         return $result[0]['created'];
     }
+
     //--------------------------------------------------------------------------
-
-
-    public static function addQuestion($questionName, $questionText, $questionAnswer, Database $db)
-    {
+    /** function addQuestion() 
+     * for insert record into table
+     * @param  int     $questionId
+     * @param  object     $db     
+     * return  string
+     */
+    public static function addQuestion($questionName, $questionText, $questionAnswer, Database $db) {
         $columns = array(
             'name',
-            'text'
+            'text',
             'answer'
         );
 
@@ -87,5 +106,6 @@ class Question
 
         return true;
     }
+
     //--------------------------------------------------------------------------
 }

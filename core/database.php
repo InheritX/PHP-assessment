@@ -3,6 +3,7 @@
 namespace interview;
 
 class Database {
+
     protected $link;
     protected $connected;
 
@@ -11,23 +12,27 @@ class Database {
 
         try {
             $this->link = new \PDO(
-                'mysql:host=' . $credentials['host'] . 'dbname=' . $credentials['database'],
-                $credentials->getUser(),
-                $credentials->getPass(),
-                array(
-                    \PDO::ATTR_EMULATE_PREPARES => false,
-                    \PDO::ATTR_ERRMODE          => \PDO::ERRMODE_EXCEPTION)
+                    'mysql:host=' . $credentials->getHost() . ';dbname=' . $credentials->getDatabase() . ';charset=utf8', $credentials->getUser(), $credentials->getPass(), array(
+                \PDO::ATTR_EMULATE_PREPARES => false,
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION)
             );
         } catch (\PDOException $e) {
             Logging::logDBErrorAndExit($e->getMessage());
         }
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function insert($tableName, $columns, $data, $ignore = false)
-    {
-        $statement  = "INSERT";
+    /** function insert() 
+     * for insert record into table
+     * @param  string     $tableName
+     * @param  array     $columns
+     * @param  array     $data
+     * @param  boolean     $ignore
+     * return  object / exception
+     */
+    public function insert($tableName, $columns, $data, $ignore = false) {
+        $statement = "INSERT";
 
         if ($ignore) {
             $statement .= " IGNORE";
@@ -37,7 +42,9 @@ class Database {
         $statement .= " (";
 
         for ($x = 0; $x < sizeof($columns); $x++) {
-            if ($x > 0) { $statement .= ', '; }
+            if ($x > 0) {
+                $statement .= ', ';
+            }
             $statement .= $columns[$x];
         }
 
@@ -45,7 +52,9 @@ class Database {
         $statement .= " values (";
 
         for ($x = 0; $x < sizeof($data); $x++) {
-            if ($x > 0) { $statement .= ', '; }
+            if ($x > 0) {
+                $statement .= ', ';
+            }
             $statement .= "?";
         }
 
@@ -58,12 +67,20 @@ class Database {
             Logging::logDBErrorAndExit($e->getMessage());
         }
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function updateOne($tableName, $column, $data, $where, $condition)
-    {
-        $statement  = "UPDATE";
+    /** function updateOne() 
+     * for update record into table
+     * @param  string     $tableName
+     * @param  array     $columns
+     * @param  array     $data
+     * @param  string   $where
+     * @param  string    $condition
+     * return  object / exception
+     */
+    public function updateOne($tableName, $column, $data, $where, $condition) {
+        $statement = "UPDATE";
 
         $statement .= " `" . $tableName . "`";
         $statement .= " SET `";
@@ -81,11 +98,15 @@ class Database {
             Logging::logDBErrorAndExit($e->getMessage());
         }
     }
+
     //--------------------------------------------------------------------------
 
-
-    public function getArray($statement)
-    {
+    /** function getArray() 
+     * for get associate array of record
+     * @param  string     $statement     
+     * return  array / exception
+     */
+    public function getArray($statement) {
         try {
             $sql = $this->link->query($statement);
             $results = $sql->fetchAll(\PDO::FETCH_ASSOC);
@@ -99,5 +120,6 @@ class Database {
 
         return $results;
     }
+
     //--------------------------------------------------------------------------
 }
